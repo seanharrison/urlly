@@ -14,4 +14,4 @@ RUN pip install -e .
 
 EXPOSE 8000
 ENTRYPOINT [ "./docker-entrypoint.sh" ]
-CMD ["uvicorn", "api.main:app", "--reload", "--host", "0.0.0.0", "--port", "8000", "--log-level", "debug"]
+CMD ["uvicorn", "app.main:app", "--reload", "--host", "0.0.0.0", "--port", "8000", "--log-level", "debug"]

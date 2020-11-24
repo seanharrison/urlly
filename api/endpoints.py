@@ -14,11 +14,11 @@ class Home(HTTPEndpoint):
 
 
 class Urls(HTTPEndpoint):
-    async def get(self, request):
-        records = await request.app.database.fetch_all(tables.urls.select())
-        urls = [URL.construct(**record).dict() for record in records]
-        result = Result(data={'urls': urls})
-        return JSONResponse(result.dict())
+    # async def get(self, request):
+    #     records = await request.app.database.fetch_all(tables.urls.select())
+    #     urls = [URL.construct(**record).dict() for record in records]
+    #     result = Result(data={'urls': urls})
+    #     return JSONResponse(result.dict())
 
     async def post(self, request):
         """

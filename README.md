@@ -1,5 +1,35 @@
 # urlly - Cloud-native URL shortener
 
+## Getting Started 
+
+### Install Locally
+Use docker-compose:
+```bash
+docker-compose build
+```
+
+### Run Locally
+The following environment variables need to exist in the environment (`direnv` is nice,
+this is your `.envrc`):
+```bash
+# replace 'urlly' with whatever values you want
+export POSTGRES_DB=urlly
+export POSTGRES_USER=urlly
+export POSTGRES_PASSWORD=urlly
+```
+Then you can bring up the API:
+```bash
+docker-compose up
+```
+And hit it at http://localhost:8000.
+
+### Run Tests
+```bash
+docker-compose run app ./runtests.sh
+```
+
+## Deployment
+Use any cloud-native provider to host postgresql and the app container / pod, inject POSTGRES_DB and DATABASE_URL into the app pod environment. There is currently no security, session, login, or rate-limiting. You can add auth and rate-limiting to an nginx ingress controller / router / reverse proxy.
 
 ## Technical / Architectural Notes
 (As a substitute for doing architectural decision records.)
@@ -24,34 +54,6 @@
 * Encoding:
     * We can't deliver random bytes in a URL. So instead, we're going to use base64 to encode the random bytes. If we strip off the final ==, that cuts our randomness from 7 characters to 5.
     * 64^5 = 1,073,741,824 * 0.01 = 10,737,418. After we've made 10 million short URLs, we might want to do some more exploration.
-
-* Implementations:
-    * Python:
-        ```python
-        import secrets, base64
-        def gen_id(length):
-            blen = (length * 3) // 4  # base64 takes 4/3 bytes to encode
-            return base64.urlsafe_b64encode(secrets.token_bytes(blen)).rstrip(b'=')
-        ```
-    * PostgreSQL:
-        ```sql
-        CREATE EXTENSION IF NOT EXISTS pgcrypto;
-        CREATE OR REPLACE FUNCTION gen_id(length integer) returns varchar as $$
-            select 
-            rtrim(
-                replace(
-                    replace(
-                        encode(
-                            -- base64 takes 4/3 bytes to encode
-                            gen_random_bytes((length * 3 / 4)::integer), 
-                            'base64'), 
-                        '+', '-'), 
-                    '/', '_'), 
-                '=') as result;
-        $$ LANGUAGE SQL;
-        ```
-    * Creating the id in Python means saving a select (returning id) from the database.
-    * Creating the id in PostgreSQL means not being bound to a particular application layer.
 
 ### Not a URL?
 ```python
@@ -78,8 +80,8 @@ def is_url(url):
 
 #### API
 
-* [x] GET / = {"status": 200, "message": "Go on, then, shorten a URL."}
-* [x] POST /urls = create new short URL for the given url.
+* GET / = {"status": 200, "message": "Go on, then, shorten a URL."}
+* POST /urls = create new short URL for the given url.
     * request body: {"url": "..."}
     * response body: 
         * created: {"status": 201, "message": "..." "data": {"url": {...}}}
