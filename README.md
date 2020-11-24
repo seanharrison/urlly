@@ -72,25 +72,26 @@ def is_url(url):
 
 ### Services
 
-* router - nginx with rate limit (max 2 req/sec from a given client IP)
+* router [TODO] - nginx with rate limit (recommended: 2 req/sec from a given client IP)
 * app - starlette app running behind gunicorn with uvicorn worker
     * /api = the api: JSON only
     * / = the ui: server-rendered bootstrap w/VueJS
 * db - postgres container with PVC
 
 #### API
+(All routes are relative to `/api`)
 
-* GET / = {"status": 200, "message": "Go on, then, shorten a URL."}
+* GET / = `{"status": 200, "message": "Go on, then, shorten a URL."}`
 * POST /urls = create new short URL for the given url.
-    * request body: {"url": "..."}
+    * request body: `{"url": "..."}`
     * response body: 
-        * created: {"status": 201, "message": "..." "data": {"url": {...}}}
-        * not a URL: {"status": 422, "message": "didn't look like a URL to me, sorry."}
+        * created: `{"status": 201, "message": "..." "data": {"url": {...}}}`
+        * not a URL: `{"status": 422, "message": "didn't look like a URL to me, sorry."}`
 * GET /urls/[ID]
-    * found: 200 => {"status": 200, "data": {"url": {...}}}
-    * not found: 404 {"status": 404, "message": "not found"}
+    * found: 200 `{"status": 200, "data": {"url": {...}}}`
+    * not found: 404 `{"status": 404, "message": "not found"}`
 
-#### UI
+#### UI [TODO]
 
 * Input box for URL. Button: "Shorten".
 * List previously-created short URLs reverse chrono under the input box.
