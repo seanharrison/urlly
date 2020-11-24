@@ -72,7 +72,7 @@ def is_url(url):
 
 ### Services
 
-* router [TODO] - nginx with rate limit (recommended: 2 req/sec from a given client IP)
+* router [TODO] - nginx with rate limit (recommended    : 2 req/sec from a given client IP)
 * app - starlette app running behind gunicorn with uvicorn worker
     * /api = the api: JSON only
     * / = the ui: server-rendered bootstrap w/VueJS
@@ -101,8 +101,3 @@ def is_url(url):
 
 * Login with Google any time.
 * Once logged in, UI syncs browser-local created URLs to our account.
-
-### Deployment
-
-* GKE
-* GitHub Actions for CI/CD from master
