@@ -11,6 +11,7 @@ database = Database(settings.DATABASE_URL)
 routes = [
     Route('/', endpoints.Home),
     Route('/urls', endpoints.Urls),
+    Route('/urls/{url_id}', endpoints.Url),
 ]
 
 

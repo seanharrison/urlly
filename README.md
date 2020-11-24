@@ -82,10 +82,10 @@ def is_url(url):
 * [x] POST /urls = create new short URL for the given url.
     * request body: {"url": "..."}
     * response body: 
-        * created: {"status": 201, "message": "..." "data": {"url": "...", "id": "..."}}
+        * created: {"status": 201, "message": "..." "data": {"url": {...}}}
         * not a URL: {"status": 422, "message": "didn't look like a URL to me, sorry."}
 * GET /urls/[ID]
-    * found: 301 => target URL
+    * found: 200 => {"status": 200, "data": {"url": {...}}}
     * not found: 404 {"status": 404, "message": "not found"}
 
 #### UI

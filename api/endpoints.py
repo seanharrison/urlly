@@ -50,3 +50,24 @@ class Urls(HTTPEndpoint):
             result = Result(errors=exc.errors(), status=422)
 
         return JSONResponse(result.dict(), status_code=result.status)
+
+
+class Url(HTTPEndpoint):
+    async def get(self, request):
+        """
+        GET the data for a URL with the given id
+
+        * exists: {"status": 200, "data": {"url": {...}}}
+        * not found: {"status": 404, "message": "Not Found"}
+        """
+        url_id = request.path_params['url_id']
+        record = await request.app.database.fetch_one(
+            tables.urls.select(tables.urls.c.id == url_id)
+        )
+        if not record:
+            result = Result(status=404, message='Not Found')
+        else:
+            url = URL.construct(**record)
+            result = Result(data={'url': url.dict()})
+
+        return JSONResponse(result.dict(), status_code=result.status)
