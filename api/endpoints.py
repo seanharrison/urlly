@@ -14,11 +14,11 @@ class Home(HTTPEndpoint):
 
 
 class Urls(HTTPEndpoint):
-    # async def get(self, request):
-    #     records = await request.app.database.fetch_all(tables.urls.select())
-    #     urls = [URL.construct(**record).dict() for record in records]
-    #     result = Result(data={'urls': urls})
-    #     return JSONResponse(result.dict())
+    async def get(self, request):
+        records = await request.app.database.fetch_all(tables.urls.select())
+        urls = [URL.construct(**record).dict() for record in records]
+        result = Result(data={'urls': urls})
+        return JSONResponse(result.dict())
 
     async def post(self, request):
         """
@@ -43,7 +43,7 @@ class Urls(HTTPEndpoint):
             await request.app.database.execute(
                 tables.urls.insert().values(**url.dict())
             )
-            result = Result(data=url.dict(), status=201)
+            result = Result(data={'url': url.dict()}, status=201)
         except JSONDecodeError as exc:
             result = Result(message=str(exc), status=400)
         except ValidationError as exc:

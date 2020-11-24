@@ -6,7 +6,7 @@ from app import settings
 
 from . import endpoints
 
-database = Database(settings.DATABASE_URL)
+database = Database(settings.DATABASE_URL, force_rollback=settings.TESTING)
 
 routes = [
     Route('/', endpoints.Home),
