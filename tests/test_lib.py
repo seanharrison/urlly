@@ -1,3 +1,4 @@
+import base64
 import json
 from pathlib import Path
 from unittest import TestCase
@@ -15,20 +16,16 @@ class TestGenId(TestCase):
         """
         for length in range(100):
             with self.subTest(length=length):
-                if length < 2 or (length - 1) % 4 == 0:
-                    with self.assertRaises(ValueError):
-                        lib.gen_id(length)
-                else:
-                    new_id = lib.gen_id(length)
-                    assert len(new_id) == length
-                    assert isinstance(new_id, str)
-
+                expected_length = len(base64.b64encode(b'a' * length).rstrip(b'='))
+                new_id = lib.gen_id(length)
+                assert len(new_id) == expected_length
+                assert isinstance(new_id, str)
 
 
 class TestIsUrl(TestCase):
     @classmethod
     def setUpClass(cls):
-        with open(FIXTURES / "is_url.json") as f:
+        with open(FIXTURES / 'is_url.json') as f:
             cls.data = json.load(f)
 
     def test_is_url(self):
@@ -44,6 +41,6 @@ class TestIsUrl(TestCase):
         """
         All of the URLs in data['not_url] should fail.
         """
-        for url in self.data["not_url"]:
+        for url in self.data['not_url']:
             with self.subTest(url=url):
                 assert lib.is_url(url) is False

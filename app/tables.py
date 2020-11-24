@@ -5,8 +5,8 @@ from app.lib import gen_id
 metadata = sa.MetaData()
 
 urls = sa.Table(
-    "urls",
+    'urls',
     metadata,
-    sa.Column("id", sa.String, primary_key=True, default=lambda: gen_id(7)),
-    sa.Column("url", sa.String, nullable=False),
+    sa.Column('id', sa.String, primary_key=True, default=lambda: gen_id(7)),
+    sa.Column('url', sa.String, nullable=False),
 )
