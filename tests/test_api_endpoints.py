@@ -1,5 +1,5 @@
 def test_home_get_ok(client):
-    response = client.get('/api')
+    response = client.get('/api/')
     assert response.status_code == 200
     data = response.json()
     assert data['status'] == 200

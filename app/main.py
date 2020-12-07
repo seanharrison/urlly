@@ -1,14 +1,15 @@
 from databases import Database
 from starlette.applications import Starlette
-from starlette.routing import Mount
+from starlette.routing import Mount, Route
 
 import api.main
-from app import settings
+from app import endpoints, settings
 
 database = Database(settings.DATABASE_URL, force_rollback=settings.TESTING)
 
 routes = [
     Mount('/api', routes=api.main.routes),
+    Route('/{url_id}', endpoints.Url),
 ]
 
 

@@ -1,7 +1,10 @@
 version: "3.7"
 services:
   db:
-    image: postgres:11
+    # postgres 11 so that the debian buster postgresql-client is fully compatible.
+    # (Simpler than hooking into the postgresql project Debian archives, which we would
+    # do if we needed any postgres 12+ features.)
+    image: postgres:11-alpine
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -20,7 +23,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      # nice for code reloading in development
+      # nice for code reloading in development; not needed in deployment
       - ".:/app"
 
 volumes:
