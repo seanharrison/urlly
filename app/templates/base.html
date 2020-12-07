@@ -1,0 +1,36 @@
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', path='bootstrap.min.css') }}" />
+
+    <title>{{request.app.settings.SITE_NAME}}</title>
+    {% block headjs %}{% endblock %}
+</head>
+
+<body onload="{% block bodyonload %}{% endblock %}">
+    <nav class="navbar navbar-light bg-white justify-content-between">
+        <a class="navbar-brand" href="{{ request.app.settings.SITE_HOST }}">
+            {{ request.app.settings.SITE_NAME }}
+        </a>
+        <a href="https://github.com/seanharrison/urlly" target="_blank">
+            <img src="{{ url_for('static', path='GitHub-Mark-32px.png') }}" width="24"
+                alt="urlly on GitHub" />
+        </a>
+    </nav>
+    {% block body %}
+    {% endblock %}
+
+    <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="{{ url_for('static', path='jquery-3.5.1.slim.min.js') }}"></script>
+    <script src="{{ url_for('static', path='bootstrap.bundle.min.js') }}"></script>
+
+    {% block bodyjs %}
+    {% endblock %}
+</body>
+
+</html>

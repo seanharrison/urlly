@@ -20,6 +20,7 @@ services:
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      SITE_HOST: ${SITE_HOST}
     ports:
       - "8000:8000"
     volumes:

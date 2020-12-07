@@ -1,6 +1,10 @@
+from pathlib import Path
+
 from databases import Database
 from starlette.applications import Starlette
 from starlette.routing import Mount, Route
+from starlette.staticfiles import StaticFiles
+from starlette.templating import Jinja2Templates
 
 import api.main
 from app import endpoints, settings
@@ -8,8 +12,14 @@ from app import endpoints, settings
 database = Database(settings.DATABASE_URL, force_rollback=settings.TESTING)
 
 routes = [
+    Route('/', endpoints.Home, name='home'),
     Mount('/api', routes=api.main.routes),
-    Route('/{url_id}', endpoints.Url),
+    Mount(
+        '/static',
+        StaticFiles(directory=Path(__file__).parent / 'static'),
+        name='static',
+    ),
+    Route('/{url_id}', endpoints.Url, name='url'),
 ]
 
 
@@ -28,3 +38,6 @@ app = Starlette(
     on_startup=[on_startup],
     on_shutdown=[on_shutdown],
 )
+
+app.settings = settings
+app.templates = Jinja2Templates(directory=Path(__file__).parent / 'templates')

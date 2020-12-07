@@ -45,7 +45,7 @@ class Urls(HTTPEndpoint):
             )
             result = Result(data={'url': url.dict()}, status=201)
         except JSONDecodeError as exc:
-            result = Result(message=str(exc), status=400)
+            result = Result(errors=[str(exc)], status=400)
         except ValidationError as exc:
             result = Result(errors=exc.errors(), status=422)
 

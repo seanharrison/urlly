@@ -4,6 +4,13 @@ from starlette.responses import RedirectResponse, Response
 from app import tables
 
 
+class Home(HTTPEndpoint):
+    async def get(self, request):
+        return request.app.templates.TemplateResponse(
+            'index.html', {'request': request}
+        )
+
+
 class Url(HTTPEndpoint):
     async def get(self, request):
         """
