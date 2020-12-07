@@ -14,7 +14,6 @@ class Url(HTTPEndpoint):
         record = await request.app.database.fetch_one(
             tables.urls.select(tables.urls.c.id == url_id)
         )
-        print(record)
         if not record:
             return Response('Not Found', status_code=404)
         else:

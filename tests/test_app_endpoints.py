@@ -7,7 +7,6 @@ def test_get_url_ok(client):
     data = {'target': 'http://example.com'}
     response = client.post('/api/urls', json=data)
     result = response.json()
-    print(result)
     url_id = result['data']['url']['id']
 
     # now we try the short URL
