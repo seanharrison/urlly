@@ -26,6 +26,6 @@ class Url(HTTPEndpoint):
         else:
             url = record['target']
             await request.app.database.execute(
-                tables.urls_access_log.insert(), values={'url_id': record['id']}
+                tables.urls_log.insert(), values={'url_id': record['id']}
             )
             return RedirectResponse(url=url, status_code=301)

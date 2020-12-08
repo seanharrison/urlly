@@ -15,8 +15,8 @@ urls = sa.Table(
     sa.Column('timestamp', sa.DateTime(timezone=True), server_default=sa.text('NOW()')),
 )
 
-urls_access_log = sa.Table(
-    'urls_access_log',
+urls_log = sa.Table(
+    'urls_log',
     metadata,
     sa.Column('url_id', sa.ForeignKey('urls.id'), nullable=False),
     sa.Column('timestamp', sa.DateTime(timezone=True), server_default=sa.text('NOW()')),
