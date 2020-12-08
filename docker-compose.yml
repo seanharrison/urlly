@@ -1,5 +1,14 @@
 version: "3.7"
 services:
+  router:
+    build: router
+    ports:
+      - "80:80"
+      # - "443:443"
+    volumes:
+      # - ./router/ssl:/etc/nginx/ssl
+      - ./router/templates:/etc/nginx/templates
+
   db:
     # postgres 11 so that the debian buster postgresql-client is fully compatible.
     # (Simpler than hooking into the postgresql project Debian archives, which we would

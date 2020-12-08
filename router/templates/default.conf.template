@@ -1,0 +1,38 @@
+# TODO: https before we do anything with sessions or auth
+
+# redirect all port 80 requests to port 443
+# server {
+#     listen 80 default_server;
+#     server_name _;
+#     return 301 https://$host$request_uri;
+# }
+
+# limit each remote IP to 2 req/sec
+limit_req_zone $binary_remote_addr zone=mylimit:10m rate=2r/s;
+
+server {
+    listen 80 default_server;
+    # listen       443 ssl;
+    server_name  _;
+    server_name_in_redirect off;
+
+    # ssl_certificate     /etc/nginx/ssl/server.crt;
+    # ssl_certificate_key /etc/nginx/ssl/server.key;
+
+    charset utf-8;
+    error_log /dev/stderr debug;
+    access_log /dev/stdout;
+
+    location / {
+        rewrite /(.*)       /$1 break;
+        proxy_pass          http://app:8000;
+        proxy_redirect      off;
+        proxy_set_header    Host $host;
+    }
+
+    # redirect server error pages to the static page /50x.html
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+}
