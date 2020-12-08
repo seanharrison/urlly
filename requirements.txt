@@ -1,7 +1,7 @@
 # TODO: 
 # 1. separate install from dev and test
 # 2. freeze requirements
-
+aiofiles==0.6.0
 alembic==1.4.3
 asyncpg==0.21.0
 black==20.8b1
