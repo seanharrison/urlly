@@ -14,6 +14,7 @@ sudo apt-get install -y \
     curl \
     gnupg-agent \
     software-properties-common
+
 # docker debian repository
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 sudo add-apt-repository \
@@ -21,6 +22,7 @@ sudo add-apt-repository \
    $(lsb_release -cs) \
    stable"
 sudo apt-get update
+
 # install docker
 sudo apt-get install -y \
      docker-ce \
@@ -34,6 +36,10 @@ sudo curl -L \
 
 # hook direnv into the shell
 echo 'eval "$(direnv hook bash)"' >>~/.bashrc
+
+# check out urlly
+git clone https://github.com/seanharrison/urlly
+cd urlly
 
 # create .envrc with all the necessary values
 echo -n "SITE_NAME: "
