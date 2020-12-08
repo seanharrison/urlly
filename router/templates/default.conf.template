@@ -8,7 +8,7 @@
 # }
 
 # limit each remote IP to 2 req/sec
-limit_req_zone $binary_remote_addr zone=mylimit:10m rate=2r/s;
+limit_req_zone $binary_remote_addr zone=home:10m rate=2r/s;
 
 server {
     listen 80 default_server;
@@ -24,6 +24,8 @@ server {
     access_log /dev/stdout;
 
     location / {
+        limit_req zone=home;
+
         rewrite /(.*)       /$1 break;
         proxy_pass          http://app:8000;
         proxy_redirect      off;
