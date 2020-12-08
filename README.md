@@ -31,6 +31,13 @@ docker-compose run app ./runtests.sh
 ## Deployment
 Use any cloud-native provider to host postgresql and the app container / pod, inject POSTGRES_DB and DATABASE_URL into the app pod environment. There is currently no security, session, login, or rate-limiting. You can add auth and rate-limiting to an nginx ingress controller / router / reverse proxy.
 
+### debian-up.sh
+```bash
+wget https://raw.githubusercontent.com/seanharrison/urlly/main/debian-up.sh
+chmod +x debian-up.sh
+./debian-up.sh
+```
+
 ## Technical / Architectural Notes
 (As a substitute for doing architectural decision records.)
 
@@ -91,11 +98,11 @@ def is_url(url):
     * found: 200 `{"status": 200, "data": {"url": {...}}}`
     * not found: 404 `{"status": 404, "message": "not found"}`
 
-#### UI [TODO]
+#### UI
 
 * Input box for URL. Button: "Shorten".
 * List previously-created short URLs reverse chrono under the input box.
-* Browser-local storage for previously-created short URLs.
+* Browser-local storage (via localforage) for previously-created short URLs.
 
 #### Auth [TODO]
 
