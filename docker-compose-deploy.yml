@@ -1,10 +1,10 @@
 version: "3.7"
 services:
   router:
-    image: urlly_router:latest
+    image: urlly_router:$TAGNAME
 
   app:
-    image: urlly_app:latest
+    image: urlly_app:$TAGNAME
     command: ["gunicorn", "-w", "2", "-k", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8000", "--log-level", "debug", "app.main:app"]
     volumes: []
 
