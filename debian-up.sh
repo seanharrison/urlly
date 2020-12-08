@@ -30,6 +30,7 @@ sudo apt-get install -y \
 sudo curl -L \
     "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" \
     -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
 
 # hook direnv into the shell
 echo 'eval "$(direnv hook bash)"' >>~/.bashrc
@@ -47,4 +48,4 @@ echo 1. Edit .envrc with your HOST_NAME
 echo 2. "source ~/.bashrc" to activate direnv, and "direnv allow" to load the environment.
 echo 3. Initialize the docker stack with 'docker swarm init --advertise-addr [ipaddress]'
 echo 4. Build the images with "docker-compose build"
-echo 5. You can now 'docker stack deploy -c docker-compose.yml -c docker-compose-deploy.yml urlly'
+echo 5. You can now 'docker stack deploy -c docker-compose.yml -c docker-compose-deploy.yml $HOST_NAME'
