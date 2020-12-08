@@ -35,8 +35,10 @@ def test_url_get_ok(client):
     # now we can get that id
     url = '/api/urls/' + result['data']['url']['id']
     response = client.get(url)
+    response_data = response.json()
+    print(response_data)
     assert response.status_code == 200
-    assert response.json()['data']['url'] == result['data']['url']
+    assert response_data['data']['url'] == result['data']['url']
 
 
 def test_url_get_404(client):

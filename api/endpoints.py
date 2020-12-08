@@ -1,16 +1,17 @@
 from json.decoder import JSONDecodeError
 
+import sqlalchemy as sa
 from pydantic import ValidationError
 from starlette.endpoints import HTTPEndpoint
-from starlette.responses import JSONResponse
 
+from api.responses import ORJSONResponse
 from app import tables
 from app.types import URL, Result
 
 
 class Home(HTTPEndpoint):
     def get(self, request):
-        return JSONResponse(Result(message='Go on, then, shorten a URL.').dict())
+        return ORJSONResponse(Result(message='Go on, then, shorten a URL.').dict())
 
 
 class Urls(HTTPEndpoint):
@@ -18,7 +19,7 @@ class Urls(HTTPEndpoint):
     #     records = await request.app.database.fetch_all(tables.urls.select())
     #     urls = [URL.construct(**record).dict() for record in records]
     #     result = Result(data={'urls': urls})
-    #     return JSONResponse(result.dict())
+    #     return ORJSONResponse(result.dict())
 
     async def post(self, request):
         """
@@ -34,22 +35,23 @@ class Urls(HTTPEndpoint):
             ```
         * Otherwise, create it:
             ```json
-            {"status": 201, "data": {"url": {"target": "...", "id": "..."}}}
+            {"status": 201, "data": {"url": {"target": "...", "id": "...", "timestamp": "..."}}}
             ```
         """
         try:
             data = await request.json()
-            url = URL(**data)
-            await request.app.database.execute(
-                tables.urls.insert().values(**url.dict())
+            new_url = URL(**data)
+            record = await request.app.database.fetch_one(
+                tables.urls.insert().returning(sa.text('*')).values(**new_url.dict())
             )
-            result = Result(data={'url': url.dict()}, status=201)
+            created_url = URL(**record)
+            result = Result(data={'url': created_url.dict()}, status=201)
         except JSONDecodeError as exc:
             result = Result(errors=[str(exc)], status=400)
         except ValidationError as exc:
             result = Result(errors=exc.errors(), status=422)
 
-        return JSONResponse(result.dict(), status_code=result.status)
+        return ORJSONResponse(result.dict(), status_code=result.status)
 
 
 class Url(HTTPEndpoint):
@@ -70,4 +72,4 @@ class Url(HTTPEndpoint):
             url = URL.construct(**record)
             result = Result(data={'url': url.dict()})
 
-        return JSONResponse(result.dict(), status_code=result.status)
+        return ORJSONResponse(result.dict(), status_code=result.status)

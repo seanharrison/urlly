@@ -25,4 +25,7 @@ class Url(HTTPEndpoint):
             return Response('Not Found', status_code=404)
         else:
             url = record['target']
+            await request.app.database.execute(
+                tables.urls_access_log.insert(), values={'url_id': record['id']}
+            )
             return RedirectResponse(url=url, status_code=301)

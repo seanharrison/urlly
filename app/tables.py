@@ -12,4 +12,12 @@ urls = sa.Table(
         'id', sa.String, primary_key=True, default=lambda: gen_id(settings.GEN_ID_BYTES)
     ),
     sa.Column('target', sa.String, nullable=False),
+    sa.Column('timestamp', sa.DateTime(timezone=True), server_default=sa.text('NOW()')),
+)
+
+urls_access_log = sa.Table(
+    'urls_access_log',
+    metadata,
+    sa.Column('url_id', sa.ForeignKey('urls.id'), nullable=False),
+    sa.Column('timestamp', sa.DateTime(timezone=True), server_default=sa.text('NOW()')),
 )

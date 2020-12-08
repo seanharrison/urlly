@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import orjson
 from pydantic import BaseModel, validator
 
@@ -34,6 +36,7 @@ class Result(Type):
 class URL(Type):
     id: str = None  # the random id for this URL
     target: str  # the target location for this URL
+    timestamp: datetime = None  # when the URL was created
 
     @validator('id', pre=True, always=True)
     def id_gen_if_none(cls, value):
