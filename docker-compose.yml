@@ -2,6 +2,8 @@ version: "3.7"
 services:
   router:
     build: router
+    depends_on: 
+      - app
     ports:
       - "80:80"
       # - "443:443"
@@ -29,8 +31,8 @@ services:
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
-      SITE_HOST: ${SITE_HOST}
-      SITE_NAME: ${SITE_NAME}
+      HOST_NAME: ${HOST_NAME}
+      SITE_URL: ${SITE_URL}
     ports:
       - "8000:8000"
     volumes:

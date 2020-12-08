@@ -4,11 +4,8 @@ set -eu
 # install git, direnv, docker, htpasswd
 sudo apt-get update 
 sudo apt-get install -y \
-    # git
     git \
-    # direnv for environment management
     direnv \
-    # system prerequisites for docker
     apt-transport-https \
     ca-certificates \
     curl \
@@ -42,13 +39,12 @@ git clone https://github.com/seanharrison/urlly
 cd urlly
 
 # create .envrc with all the necessary values
-echo -n "SITE_NAME: "
-read SITE_NAME
-echo export SITE_NAME=$(SITE_NAME) >>.envrc
-echo export 'SITE_HOST=http://${SITE_NAME}'
-echo export POSTGRES_DB=urlly >>.envrc
-echo export POSTGRES_USER=urlly >>.envrc
-echo export POSTGRES_PASSWORD=$(openssl rand -hex 32) >>.envrc
+cp _envrc.TEMPLATE .envrc
+echo "export POSTGRES_PASSWORD=$(openssl rand -hex 32)" >>.envrc
 
-echo You must initialize the docker stack with 'docker swarm init --advertise-addr [ipaddress]'
-echo then you can 'docker stack deploy -c docker-compose.yml -c docker-compose-deploy.yml urlly'
+echo To finish the deployment:
+echo 1. Edit .envrc with your HOST_NAME
+echo 2. "source ~/.bashrc" to activate direnv, and "direnv allow" to load the environment.
+echo 3. Initialize the docker stack with 'docker swarm init --advertise-addr [ipaddress]'
+echo 4. Build the images with "docker-compose build"
+echo 5. You can now 'docker stack deploy -c docker-compose.yml -c docker-compose-deploy.yml urlly'

@@ -11,14 +11,14 @@
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
         crossorigin="anonymous">
 
-    <title>{{request.app.settings.SITE_NAME}}</title>
+    <title>{{request.app.settings.HOST_NAME}}</title>
     {% block headjs %}{% endblock %}
 </head>
 
 <body onload="{% block bodyonload %}{% endblock %}">
     <nav class="navbar navbar-light bg-white justify-content-between">
-        <a class="navbar-brand" href="{{ request.app.settings.SITE_HOST }}">
-            {{ request.app.settings.SITE_NAME }}
+        <a class="navbar-brand" href="{{ request.app.settings.SITE_URL }}">
+            {{ request.app.settings.HOST_NAME }}
         </a>
         <a href="https://github.com/seanharrison/urlly" target="_blank">
             <img src="{{ url_for('static', path='GitHub-Mark-32px.png') }}" width="24"

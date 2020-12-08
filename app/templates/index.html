@@ -28,8 +28,8 @@
                 </tr>
                 <tr v-for="url in urls">
                     <td>
-                        <a :href="SITE_HOST + '/' + url.id" target="_blank">
-                            {% raw %}{{SITE_HOST + '/' + url.id}}{% endraw %}
+                        <a :href="SITE_URL + '/' + url.id" target="_blank">
+                            {% raw %}{{SITE_URL + '/' + url.id}}{% endraw %}
                         </a>
                     </td>
                     <td>
@@ -54,8 +54,8 @@
     
 <script type="application/javascript">
     // These are server settings rendered by Jinja
-    const SITE_HOST = '{{ request.app.settings.SITE_HOST }}';
-    const API_URL = SITE_HOST + '/api';
+    const SITE_URL = '{{ request.app.settings.SITE_URL }}';
+    const API_URL = SITE_URL + '/api';
 
     Vue.use(Vuex);
     const store = new Vuex.Store({

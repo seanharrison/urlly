@@ -6,5 +6,5 @@ TESTING = bool(os.getenv('TESTING'))
 DATABASE_URL = os.environ['DATABASE_URL']
 GEN_ID_BYTES = 5  # results in a 7-char base64 string representing 5 random bytes
 
-SITE_HOST = os.environ['SITE_HOST']
-SITE_NAME = os.getenv('SITE_NAME', 'urlly')
+HOST_NAME = os.getenv('HOST_NAME', 'urlly')
+SITE_URL = os.environ['SITE_URL']

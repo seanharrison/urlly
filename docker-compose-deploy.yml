@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+  router:
+    image: urlly_router:latest
+
+  app:
+    image: urlly_app:latest
+    command: ["gunicorn", "-w", "2", "-k", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8000", "--log-level", "debug", "app.main:app"]
+    volumes: []
+
+volumes:
+  pgdata:
