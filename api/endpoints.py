@@ -35,7 +35,7 @@ class Urls(HTTPEndpoint):
             ```
         * Otherwise, create it:
             ```json
-            {"status": 201, "data": {"url": {"target": "...", "id": "...", "timestamp": "..."}}}
+            {"status": 201, "data": {"url": {"target": "...", "id": "...", "created": "..."}}}
             ```
         """
         try:
