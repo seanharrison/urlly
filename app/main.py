@@ -14,11 +14,6 @@ database = Database(settings.DATABASE_URL, **settings.DATABASE_PARAMS)
 routes = [
     Route('/', endpoints.Home, name='home'),
     Mount('/api', routes=api.main.routes),
-    Mount(
-        '/static',
-        StaticFiles(directory=Path(__file__).parent / 'static'),
-        name='static',
-    ),
     Route('/{url_id}', endpoints.Url, name='url'),
 ]
 
