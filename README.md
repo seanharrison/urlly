@@ -128,4 +128,4 @@ when we do implement auth, we will need to implement HTTPS and the works.
     * We can't deliver random bytes in a URL. So instead, we're going to use base64 to
       encode the random bytes. If we strip off the final ==, that cuts our randomness
       from 7 characters to 5.
-    * 64^5 = 2^30 = 1,073,741,824 possible values.
+    * 256^5 = 2^40 = 1.09E12 possible values.
