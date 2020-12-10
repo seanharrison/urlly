@@ -34,13 +34,10 @@ And hit it at http://localhost.
 docker-compose run app ./runtests.sh
 ```
 
-## Deployment
-Use any cloud-native provider to host postgresql and the app container / pod, inject
-POSTGRES_DB and DATABASE_URL into the app pod environment. There is currently no
-security, session, login, or rate-limiting. You can add auth and rate-limiting to an
-nginx ingress controller / router / reverse proxy.
+## Installation and Deployment
+This application is currently developed for Debian 10, which is available at most cloud
+hosting providers. 
 
-### Installation and Deployment
 On the system / virtualhost / VPS / EC2 instance that you will be deploying on, open a
 shell terminal (such as bash) and type the following:
 ```bash
@@ -52,8 +49,8 @@ The `./debian-up.sh` command will install system requirements, clone and cd to a
 folder, and create a `.envrc` file with environment variables and secrets. Edit the
 values there before deploying.
 
-Follow the instructions given when `./debian-up.sh` has completed successfully: See
-[DEPLOY.md](DEPLOY.md)
+To finish deploying the application and redeploy new versions, follow the instructions
+given when `./debian-up.sh` has completed successfully: See [DEPLOY.md](DEPLOY.md).
 
 ---
 
