@@ -2,7 +2,8 @@
 
 To finish setting up the application:
 
-1. Edit `.envrc` with your own STACK_NAME, HOST_NAME, and SITE_URL
+1. Edit `.envrc` with your own STACK_NAME, HOST_NAME, and SITE_URL. Also add a
+   LOGGLY_CUSTOMER_TOKEN if you want to use loggly.
 2. `source ~/.bashrc` to activate direnv, `direnv allow` to load the environment.
 3. Initialize the docker stack with `docker swarm init --advertise-addr [ipaddress]`
 
