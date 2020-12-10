@@ -12,6 +12,9 @@ export SITE_URL=http://${HOST_NAME}
 
 # export DEBUG=true
 
+# loggly integration - add your loggly customer token
+export LOGGLY_CUSTOMER_TOKEN=
+
 # POSTGRES environment variables; see
 # <https://github.com/docker-library/docs/blob/master/postgres/README.md#environment-variables>
 
