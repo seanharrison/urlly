@@ -42,6 +42,7 @@ class Urls(HTTPEndpoint):
         try:
             data = await request.json()
             new_url = URL(**data)
+            # TODO: Catch and handle collisions in the randomly-generated ids.
             record = await request.app.database.fetch_one(
                 tables.urls.insert().returning(sa.text('*')).values(**new_url.dict())
             )

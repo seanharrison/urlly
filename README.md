@@ -107,8 +107,6 @@ when we do implement auth, we will need to implement HTTPS and the works.
       root path (https://krx.li/), that leaves 7 chars. Could be why Bit.ly is 7
       characters!
     * So we'll use 7 characters.
-    * Due to the birthday paradox, we'll want to revisit this decision if we get more
-      than say 1% of the available values used up. 
 
 * Charset:
     * urlsafe base64 is a good choice. We could pare it down to remove `1l0O` but we
@@ -130,5 +128,4 @@ when we do implement auth, we will need to implement HTTPS and the works.
     * We can't deliver random bytes in a URL. So instead, we're going to use base64 to
       encode the random bytes. If we strip off the final ==, that cuts our randomness
       from 7 characters to 5.
-    * 64^5 = 1,073,741,824 * 0.01 = 10,737,418. After we've made 10 million short URLs,
-      we might want to do some more exploration.
+    * 64^5 = 2^30 = 1,073,741,824 possible values.
