@@ -9,7 +9,7 @@ from starlette.templating import Jinja2Templates
 import api.main
 from app import endpoints, settings
 
-database = Database(settings.DATABASE_URL, force_rollback=settings.TESTING)
+database = Database(settings.DATABASE_URL, **settings.DATABASE_PARAMS)
 
 routes = [
     Route('/', endpoints.Home, name='home'),

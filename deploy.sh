@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eu
+set -eux
 
 git pull
 export TAGNAME=$(git rev-parse --short HEAD)

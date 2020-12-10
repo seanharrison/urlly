@@ -15,6 +15,7 @@ class Home(HTTPEndpoint):
 
 
 class Urls(HTTPEndpoint):
+    # TODO: After there's auth, this can be limited to the URLs belonging to the user.
     # async def get(self, request):
     #     records = await request.app.database.fetch_all(tables.urls.select())
     #     urls = [URL.construct(**record).dict() for record in records]
